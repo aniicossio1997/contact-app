@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using api_contact.Models.Validations;
+using Microsoft.AspNetCore.Mvc;
+using FluentValidation.AspNetCore;
+using api_contact.Models.DTO;
 
 namespace api_contact.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/contacts")]
     public class ContactController : Controller
     {
         private readonly IContactService _contactService;
@@ -22,6 +25,19 @@ namespace api_contact.Controllers
             {
                 return StatusCode(500, $"Error interno{ ex.Message}");
             }
+        }
+        
+        [HttpPost]
+        public IActionResult CreateContact([FromBody] ContactNewDTO contact)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Si la validación pasa, realiza la lógica de creación del contacto
+
+            return Ok("Contacto creado exitosamente");
         }
     }
 }

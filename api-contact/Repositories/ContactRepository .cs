@@ -1,4 +1,6 @@
 ﻿using api_contact.Models;
+using api_contact.Models.DTO;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace api_contact.Repositories
@@ -6,15 +8,19 @@ namespace api_contact.Repositories
     public class ContactRepository : ICrud<Contact>
     {
         private readonly ApplicationDbContext _context;
-
-        public ContactRepository(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        public ContactRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Contact>> GetAllContacts()
+        public async Task<IEnumerable<ContactListDTO>> GetAllContacts()
         {
-            return await _context.Contacts.ToListAsync(); 
+            var contacts = await _context.Contacts.ToListAsync();
+            var contactDTOs = _mapper.Map<IEnumerable<ContactListDTO>>(contacts);
+            return contactDTOs;
+            
         }
 
         public async Task<Contact> GetById(int id)

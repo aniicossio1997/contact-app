@@ -15,17 +15,17 @@ namespace api_contact.Models
         [Column("first_name")]
         public string FirstName { get; set; }
 
-        [Required]
-        [Column("last_name")] // Cambiar el nombre de la columna para LastName
-        public int LastName { get; set; }
+       
+        [Column("last_name")] 
+        public string LastName { get; set; }=string.Empty;
 
-        [Required]
+       
         [Column("email")] // Cambiar el nombre de la columna para Email
-        public string Email { get; set; }
+        public string Email { get; set; }= string.Empty;
 
         [Required]
         [Column("phone")] // Cambiar el nombre de la columna para Phone
-        public string Phone { get; set; }
+        public int Phone { get; set; }
 
         [Column("description")]
         public string Description { get; set; } = string.Empty;
