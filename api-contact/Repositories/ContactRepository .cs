@@ -8,20 +8,13 @@ namespace api_contact.Repositories
     public class ContactRepository : ICrud<Contact>
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
-        public ContactRepository(ApplicationDbContext context, IMapper mapper)
+       
+        public ContactRepository(ApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
+           
         }
 
-        public async Task<IEnumerable<ContactListDTO>> GetAllContacts()
-        {
-            var contacts = await _context.Contacts.ToListAsync();
-            var contactDTOs = _mapper.Map<IEnumerable<ContactListDTO>>(contacts);
-            return contactDTOs;
-            
-        }
 
         public async Task<Contact> GetById(int id)
         {
@@ -55,9 +48,12 @@ namespace api_contact.Repositories
             return true;
         }
 
-        public async Task<IEnumerable<Contact>> GetAll() 
+        public async Task<IEnumerable<Contact>> GetAll()
         {
-            return await _context.Contacts.ToListAsync();
+            var contacts = await _context.Contacts
+                            .OrderByDescending(c => c.CreatedAt)
+                            .ToListAsync();
+            return contacts;
         }
     }
 }

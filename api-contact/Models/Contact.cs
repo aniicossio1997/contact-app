@@ -25,7 +25,7 @@ namespace api_contact.Models
 
         [Required]
         [Column("phone")] // Cambiar el nombre de la columna para Phone
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         [Column("description")]
         public string Description { get; set; } = string.Empty;

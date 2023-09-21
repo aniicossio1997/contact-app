@@ -1,0 +1,47 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+html,body{
+  font-size: 15px;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  color: #5f6368 !important;
+  background-color: #fff !important;
+border: 0 !important;
+}
+.p-datatable-header{
+  letter-spacing: .07272727em;
+  font-family: Roboto,Arial,sans-serif;
+  font-size: .6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  text-transform: uppercase;
+  color: #5f6368;
+background-color: #fff !important;
+border: 0 !important;
+}
+.text-title{
+  display: inline-block;
+    font-family: "Product Sans",Arial,sans-serif;
+    font-size: 22px;
+    line-height: 24px;
+    padding-left: 8px;
+    position: relative;
+    top: -1.5px;
+    vertical-align: middle;
+    color: #5f6368;
+}
+::ng-deep tbody > tr{
+border: 0 !important;
+
+}
+
+.style-avatar{
+  background-color:#2196F3; color: #ffffff
+}
+.color-danger{
+  color: rgb(231, 80, 80);font-weight: bolder;
+  font-size: 15px;
+}

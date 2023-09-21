@@ -1,0 +1,16 @@
+::ng-deep .p-datatable-table{
+width: 100%;
+}
+@media (max-width: 800px) {
+    .responsive-box-btn{
+        flex-direction: column !important;
+    }
+  }
+@media (max-width: 700px) {
+    ::ng-deep .p-datatable-table{
+        width: 44rem !important;
+        }
+    .responsive-box-btn{
+        flex-direction: column !important;
+    }
+  }

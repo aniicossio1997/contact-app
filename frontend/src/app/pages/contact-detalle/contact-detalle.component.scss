@@ -1,0 +1,31 @@
+::ng-deep .p-avatar.p-avatar-xl {
+    width: 8rem;
+    height: 8rem;
+    font-size: 4rem !important;
+}
+.style-icon{
+    font-size: 1.5rem;
+    vertical-align: middle;
+    margin-right:5px ;
+    color: rgb(128,134,139);
+}
+.box-description{
+ width: 50%;
+}
+@media (max-width: 800px) {
+    .box-description{
+        width: 80%;
+        
+       }
+  }
+  @media (max-width: 700px) {
+    .box-description{
+        width: 100%;
+      
+       }
+  }
+  ::ng-deep .p-inputtext:enabled:focus, ::ng-deep .p-inputtext:focus, input{
+
+    box-shadow: none !important;
+  
+  }

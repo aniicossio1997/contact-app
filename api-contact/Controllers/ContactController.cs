@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using FluentValidation.AspNetCore;
 using api_contact.Models.DTO;
+using Microsoft.EntityFrameworkCore;
+using api_contact.Common;
 
 namespace api_contact.Controllers
 {
@@ -20,24 +22,51 @@ namespace api_contact.Controllers
         {
             try { 
                  var contacts=await _contactService.GetAllContacts();
-                return Ok(contacts);
+                return Ok(new ApiResponse<IEnumerable<ContactListDTO>>("Lista de contactos", contacts));
             }catch (Exception ex)
             {
                 return StatusCode(500, $"Error interno{ ex.Message}");
             }
         }
         
+ 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetContactById(int id)
+        {
+            try {
+                var contact = await _contactService.GetContactById(id);
+
+                if (contact == null)
+                {
+                    return NotFound(new ApiResponse<object>("No se encontro el contacto", null,false)); // El contacto no se encontró, devuelve un 404 Not Found.
+                }
+
+                return Ok(new ApiResponse<Contact>("Contact full", contact));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno: {ex.Message}");
+
+            }
+        }
         [HttpPost]
-        public IActionResult CreateContact([FromBody] ContactNewDTO contact)
+        public async Task<IActionResult> CreateContact([FromBody] ContactNewDTO contact)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            // Si la validación pasa, realiza la lógica de creación del contacto
+            var createdContact = await _contactService.AddContactAsync(contact);
 
-            return Ok("Contacto creado exitosamente");
+            if (createdContact != null)
+            {
+                return Ok(new ApiResponse<ContactListDTO>("Contacto creado exitosamente", createdContact));
+            }
+            else
+            {
+                return StatusCode(500, "No se pudo crear el contacto");
+            }
         }
     }
 }

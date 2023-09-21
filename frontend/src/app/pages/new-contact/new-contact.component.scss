@@ -1,0 +1,29 @@
+.icon-form{
+margin-top: 8px;
+} 
+textarea{
+    resize: vertical;
+    overflow-y: auto;
+    height: 160px;
+    min-height: 100px;
+    max-height: 210px;
+}
+form{
+    width: 40%;
+}
+@media (max-width: 950px) {
+    form{
+        width: 60%;
+    }
+  }
+
+@media (max-width: 950px) {
+    form{
+        width: 80%;
+    }
+  }
+
+  /* Estilo para un botón deshabilitado */
+button:disabled {
+
+  }

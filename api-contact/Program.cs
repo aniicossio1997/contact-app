@@ -50,6 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowWepapp");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

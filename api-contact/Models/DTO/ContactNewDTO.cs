@@ -12,7 +12,7 @@ namespace api_contact.Models.DTO
 
          public string Email { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         public string Description { get; set; } = string.Empty;
 

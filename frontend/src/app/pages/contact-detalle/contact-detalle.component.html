@@ -1,0 +1,84 @@
+<p-card>
+    <ng-template pTemplate="header">
+        <p-button styleClass="p-button-secondary p-button-text" (click)="onList()">
+            <i class="pi pi-arrow-left mr-1"></i> Volver</p-button>
+
+        <div class="grid" style="width: 100%;">
+
+            <div class="col-12 md:col-10 lg:col-10">
+                <div class="flex justify-content-start flex-wrap">
+                    <div class="flex ">
+                        <p-avatar size="xlarge" shape="circle" class="m-2"
+                            [style]="{'background-color':'#2196F3', 'color': '#ffffff'}">
+                            <span style="font-weight: 600;">{{'leo'| firstLetters:'Melo'}}</span>
+                        </p-avatar>
+                    </div>
+                    <div class="flex align-items-center justify-content-center ml-4	" style="vertical-align: middle;">
+                        <h1>{{contact?.firstName | titlecase}} {{contact?.lastName | titlecase}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-1 lg:col-1 gap-3">
+                <div class="grid">
+                    <p-button styleClass="p-button-help" class="col-12">
+                        <i class="pi pi-pencil mr-2"></i> Editar
+                    </p-button>
+                    <p-button styleClass="p-button-danger" class="col-12" (click)="confirmRemove()">
+                        <i class="pi pi-trash mr-2"></i> Eliminar
+                    </p-button>
+                    <div class="card flex justify-content-center">
+                        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+                        <p-button styleClass="p-button-secondary" (click)="menu.toggle($event)"
+                            icon="pi pi-bars"></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="content">
+        <p-divider type="solid"></p-divider>
+        <div class="w-full	">
+            <h3>Datos de contacto</h3>
+            <div class="flex flex-column md:flex-row">
+                <div class="flex mx-1 my-3"><i class="pi pi-phone style-icon"></i></div>
+                <div class="flex mx-1 my-3">{{contact?.phone | phoneFormat}} </div>
+            </div>
+            <div class="flex flex-column md:flex-row">
+                <div class="flex mx-1 my-3"><i class="pi pi-envelope style-icon"></i></div>
+                <div class="flex mx-1 my-3">{{contact?.email}}</div>
+            </div>
+            <div class="flex flex-column md:flex-row">
+                <div class="flex mx-1 my-3"><i class="pi pi-file style-icon"></i></div>
+                <div class="flex mx-1 my-3 line-height-3 box-description ">{{contact?.description}}</div>
+
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <span style="color: #979595; font-size: 0.8rem; font-weight: bolder;">
+            Ultima Modificación: {{formatDate(contact?.updatedAt)}}
+        </span>
+    </ng-template>
+</p-card>
+<p-confirmDialog #cd [style]="{width: '50vw'}">
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-between flex-wrap gap-3">
+            <div class="flex align-items-center justify-content-center">
+                <button type="button" pButton class="p-button-secondary" icon="pi pi-times" label="Cancelar"
+                    (click)="cd.reject()"></button>
+
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <button type="button" pButton icon="pi pi-check" label="Eliminar" (click)="cd.accept()"
+                    class="p-button-danger"></button>
+
+            </div>
+        </div>
+    </ng-template>
+</p-confirmDialog>
