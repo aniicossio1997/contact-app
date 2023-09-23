@@ -68,5 +68,57 @@ namespace api_contact.Controllers
                 return StatusCode(500, "No se pudo crear el contacto");
             }
         }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteContact(int id)
+        {
+            var result = await _contactService.DeleteContactAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateContact(int id, [FromBody] ContactNewDTO contact)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var updatedContact = await _contactService.UpdateContactAsync(id, contact);
+
+                if (updatedContact)
+                {
+                    // La actualización fue exitosa, ahora obtén el contacto actualizado.
+                    var updatedContactInfo = await _contactService.GetContactById(id);
+
+                    if (updatedContactInfo != null)
+                    {
+                        return Ok(new ApiResponse<Contact>("Contacto actualizado exitosamente", updatedContactInfo));
+                    }
+                    else
+                    {
+                        return NotFound(new ApiResponse<object>("No se encontro el contacto", null, false));
+                    }
+                }
+                else
+                {
+                    return NotFound(new ApiResponse<object>("No se encontro el contacto", null, false));
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
+        }
+
+
     }
 }
