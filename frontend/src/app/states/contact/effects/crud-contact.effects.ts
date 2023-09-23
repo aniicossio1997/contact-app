@@ -1,35 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { map, exhaustMap, catchError, tap, mergeMap } from 'rxjs/operators';
-import { ContactApiActions, ContactApiCrudActions } from '../actions/contact.actions';
+import { ContactApiActions, ContactApiCrudAddActions, ContactApiCrudDeleteActions, ContactApiCrudUpdateActions } from '../actions/contact.actions';
 import { ContactService } from 'src/app/services/contact.service';
 
 @Injectable()
 export class CrudContactEffects {
-  constructor(
-    private actions$: Actions,
-    private contactService: ContactService
-  ) {}
+  constructor(private actions$: Actions, private contactService: ContactService) {}
 
   addContact$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ContactApiCrudActions.loadAdd),
-      exhaustMap(({ bodyContact }) =>
-        this.contactService.addContact(bodyContact).pipe(
-          tap(contact => console.log(contact)),
-          map(contact => ContactApiCrudActions.loadedAddSucces()),
-          catchError(() => EMPTY)
+      ofType(ContactApiCrudAddActions.loadAdd),
+      exhaustMap(({ newContact }) =>
+        this.contactService.addContact(newContact).pipe(
+          map((contact) => ContactApiCrudAddActions.loadedAddSuccess({ newContact: contact })),
+          catchError((error) => of(ContactApiCrudAddActions.loadedAddError)) // Usa 'of' para emitir la acción
         )
       )
     )
   );
-
-  // Agrega la acción loadContactList después de agregar un nuevo contacto
-  addContactSuccess$ = createEffect(() =>
+  deleteContact$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ContactApiCrudActions.loadedAddSucces),
-      mergeMap(() => [ContactApiActions.loadContactList()]) // Dispara la acción loadContactList
+      ofType(ContactApiCrudDeleteActions.loadDelete),
+      exhaustMap(({ contactId }) =>
+        this.contactService.deleteContact(contactId).pipe(
+          map((contact) => ContactApiCrudDeleteActions.loadedDeleteSuccess({contactId:contact })),
+          catchError((error) => of(ContactApiCrudDeleteActions.loadedDeleteError())) 
+        )
+      )
     )
   );
+  updateContact$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(ContactApiCrudUpdateActions.loadUpdate),
+    exhaustMap(({ contactForm,contactId }) =>
+      this.contactService.updateContact(contactId,contactForm).pipe(
+        map((contact) => ContactApiCrudUpdateActions.loadedUpdateSuccess({ contact })),
+        catchError((error) => of(ContactApiCrudUpdateActions.loadedUpdateError)) // Usa 'of' para emitir la acción
+      )
+    )
+  )
+);
 }

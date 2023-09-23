@@ -25,10 +25,21 @@ export class ContactService {
       tap(data=> (data)),
       map(data=> data.data))
   }
-  addContact(bodyContact:IContactForm):Observable<boolean>{
-    return this.http.post<IResponse<any>>(`${this.url}`,bodyContact)
+  addContact(newContact:IContactForm):Observable<IContact>{
+    return this.http.post<IResponse<IContact>>(`${this.url}`,newContact)
+    .pipe(
+      map(data=> data.data))
+  }
+  deleteContact(contactId:number):Observable<number>{
+    return this.http.delete<IResponse<any>>(`${this.url}/${contactId}`)
     .pipe(
       tap(data=> console.log(data)),
-      map(data=> data.success))
+      map(data=> contactId))
+  }
+  updateContact(contactId:number,updateContact:IContactForm):Observable<IContactFull>{
+    return this.http.patch<IResponse<IContactFull>>(`${this.url}/${contactId}`,updateContact)
+    .pipe(
+      tap(data=> (data)),
+      map(data=> data.data))
   }
 }

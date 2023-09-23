@@ -12,6 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { PagesModule } from './pages/pages.module';
 import { ErrorInterceptorCustom } from './handle-errors/ErrorInterceptorCustom';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { PrimeModule } from './prime.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     BrowserAnimationsModule,
     HttpClientModule,
     PagesModule,
+    PrimeModule
   ],
   providers: [
     {

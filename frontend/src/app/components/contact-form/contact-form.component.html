@@ -1,0 +1,99 @@
+
+  <p-card>
+    <ng-template pTemplate="content">
+        <p-button (click)="handleNavigation()" pTooltip="Volver" styleClass="p-button-secondary p-button-text">
+            <i class="pi pi-times mr-1"></i>
+        </p-button>
+        <p-divider type="solid"></p-divider>
+        <div class="flex flex-column  justify-content-center flex-wrap">
+            <div class="flex align-items-center justify-content-center  m-2">
+                <h2>{{title}}</h2>
+
+            </div>
+            <p-messages severity="error" *ngIf="showMjsValid">
+              <ng-template pTemplate>
+                  <div class="ml-2">El nombre y email son obligatorios</div>
+              </ng-template>
+            </p-messages>
+            <div class="flex align-items-center justify-content-center  m-2">
+              
+
+              <form [formGroup]="contactForm" (submit)="onSubmit()">
+                <div class="field grid mt-2">
+                  <i class="col-fixed pi pi-user icon-form"></i>
+                  <div class="col">
+                    <div class="flex flex-column gap-3">
+                      <span class="p-float-label">
+                        <input pInputText pTooltip="Campo obligatorio"  id="firstName" class="w-full" formControlName="firstName" type="text" />
+                        <label htmlFor="firstName">Nombre <span class="color-danger">*</span> </label>
+                      </span>
+                      <span class="p-float-label my-3">
+                        <input pInputText id="lastName" class="w-full" formControlName="lastName" type="text" />
+                        <label htmlFor="lastName">Apellido</label>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="field grid">
+                  <i class="col-fixed pi pi-phone icon-form"></i>
+                  <div class="col">
+                    <span class="p-float-label">
+                      <p-inputMask pTooltip="Campo obligatorio"  styleClass="w-full" id="float-input" mask="(999) 999-9999" placeholder="(999) 999-9999" formControlName="phone"></p-inputMask>
+                      <label for="float-input">Telefono <span class="color-danger">*</span></label>
+            
+                    </span>
+                  </div>
+                </div>
+                <div class="field grid my-5">
+                  <i class="col-fixed pi pi-envelope icon-form"></i>
+                  <div class="col">
+                    <span class="p-float-label">
+                      <input pInputText id="email" class="w-full" formControlName="email" type="email" />
+                      <label htmlFor="email">Email</label>
+                    </span>
+                  </div>
+                </div>
+                <div class="field grid my-5">
+                  <i class="col-fixed pi pi-file icon-form"></i>
+                  <div class="col">
+                    <span class="p-float-label">
+                      <textarea id="description" class="w-full" pInputTextarea formControlName="description"></textarea>
+                      <label for="description">Descripcion</label>
+                    </span>
+                  </div>
+                </div>
+                <!-- Buttons -->
+                <div class="flex justify-content-between flex-wrap">
+                  <div class="flex align-items-center justify-content-center ">
+                    <button type="reset" pButton class="p-button-outlined p-button-secondary p-button p-button-sm" (click)="cleanForm()"> <i class="pi pi-eraser mr-2"></i> Limpiar</button>
+
+                  </div>
+                  <div class="flex align-items-center justify-content-center ">
+                    <button pButton class="p-button-primary"  class="col-12">
+                      <i class="pi pi-save mr-2"></i> Guardar
+                    </button>
+                  </div>
+                </div>
+                <pre>
+
+                </pre>
+              </form>
+            </div>
+        </div>
+    </ng-template>
+</p-card>
+  <p-confirmDialog #cd [style]="{width: '50vw'}">
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-between flex-wrap gap-3">
+            <div class="flex align-items-center justify-content-center">
+                <button type="button" pButton class="p-button-secondary" icon="pi pi-times" label="No"
+                    (click)="cd.reject()">
+                  </button>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <button type="button" pButton icon="pi pi-check" label="Si" (click)="cd.accept()"
+                        class="p-button-danger"></button>
+            </div>
+        </div>
+    </ng-template>
+  </p-confirmDialog>

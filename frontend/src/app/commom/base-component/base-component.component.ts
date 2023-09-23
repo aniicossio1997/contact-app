@@ -10,4 +10,5 @@ export class BaseComponentComponent {
   public goToList() {
     this.router.navigate(['/']);
   }
+  
 }

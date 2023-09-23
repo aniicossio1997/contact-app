@@ -10,7 +10,7 @@
                     <div class="flex ">
                         <p-avatar size="xlarge" shape="circle" class="m-2"
                             [style]="{'background-color':'#2196F3', 'color': '#ffffff'}">
-                            <span style="font-weight: 600;">{{'leo'| firstLetters:'Melo'}}</span>
+                            <span style="font-weight: 600;">{{contact?.firstName | firstLetters:contact?.lastName}}</span>
                         </p-avatar>
                     </div>
                     <div class="flex align-items-center justify-content-center ml-4	" style="vertical-align: middle;">
@@ -20,7 +20,7 @@
             </div>
             <div class="col-12 md:col-1 lg:col-1 gap-3">
                 <div class="grid">
-                    <p-button styleClass="p-button-help" class="col-12">
+                    <p-button styleClass="p-button-help" class="col-12" (click)="onDetail()">
                         <i class="pi pi-pencil mr-2"></i> Editar
                     </p-button>
                     <p-button styleClass="p-button-danger" class="col-12" (click)="confirmRemove()">

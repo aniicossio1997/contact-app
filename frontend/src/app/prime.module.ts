@@ -12,7 +12,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
 const modules=[
     TableModule,
     AvatarModule,
@@ -26,7 +27,9 @@ const modules=[
     ConfirmDialogModule,
     InputTextModule,
     InputMaskModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ToastModule,
+    MessagesModule
 ]
 
 @NgModule({

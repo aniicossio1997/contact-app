@@ -1,5 +1,8 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root', // Puedes usar 'root' o proporcionar el Pipe en un módulo específico
+})
 @Pipe({
   name: 'phoneFormat'
 })

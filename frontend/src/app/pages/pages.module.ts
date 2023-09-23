@@ -7,22 +7,26 @@ import { ContactDetalleComponent } from './contact-detalle/contact-detalle.compo
 import { RouterModule, Routes } from '@angular/router';
 import { NewContactComponent } from './new-contact/new-contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditContactComponent } from './edit-contact/edit-contact.component';
+import { ComponentsModule } from '../components/components.module';
 
 
 const appRoutes: Routes = [
   { path: '', component:ContactListComponent },
   { path: 'new', component: NewContactComponent },
+  { path: 'edit/:id', component: EditContactComponent },
   { path: ':id', component: ContactDetalleComponent },
 ];
 @NgModule({
-  declarations: [ContactListComponent,ContactDetalleComponent, NewContactComponent],
+  declarations: [ContactListComponent,ContactDetalleComponent, NewContactComponent, EditContactComponent],
 
   imports: [
     CommonModule,
     PrimeModule,
     SharedModule,
     RouterModule.forChild(appRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ],
   exports:[ContactListComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { map, exhaustMap, catchError } from 'rxjs/operators';
 import { ContactApiActions } from '../actions/contact.actions';
 import { ContactService } from 'src/app/services/contact.service';
@@ -26,7 +26,7 @@ export class ContactEffects {
     exhaustMap(({contactId}) => this.contactService.getFullById(contactId) 
       .pipe( 
         map(contact => (ContactApiActions.loadedSelectedContact({selectedContact:contact}))),
-        catchError(() => EMPTY)
+        catchError((error) => of(ContactApiActions.loadedSelectedErrorContact())) 
       ))
     )
   );
