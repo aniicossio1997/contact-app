@@ -3,9 +3,11 @@ import { IContact, IContactFull } from "src/app/interfaces/IContact";
 export interface IContactState{
     isLoading:boolean,
     contacts: IContact[],
+    filteredContacts:IContact[],
     selectedContact:IContactFull | null,
     statusCrud:IStatusCud,
-    initialLoaded:boolean
+    initialLoaded:boolean,
+    searchTerm:string
 }
 export interface IStatusCud{
     status:EnumStatusCrud,

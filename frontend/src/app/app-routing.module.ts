@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContactListComponent } from './pages/contact-list/contact-list.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,10 @@ const routes: Routes = [
   {
     path: 'contacts',
     loadChildren: () => import('./../app/pages/pages.module').then(m => m.PagesModule)
-  },
+  },{
+    path:'error',
+    component:ErrorPageComponent,
+  }
 ];
 
 @NgModule({

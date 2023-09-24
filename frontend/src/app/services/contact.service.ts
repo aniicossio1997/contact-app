@@ -33,7 +33,6 @@ export class ContactService {
   deleteContact(contactId:number):Observable<number>{
     return this.http.delete<IResponse<any>>(`${this.url}/${contactId}`)
     .pipe(
-      tap(data=> console.log(data)),
       map(data=> contactId))
   }
   updateContact(contactId:number,updateContact:IContactForm):Observable<IContactFull>{

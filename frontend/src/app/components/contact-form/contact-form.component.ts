@@ -1,15 +1,18 @@
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService } from 'primeng/api';
+import { Router } from '@angular/router';
+import { ConfirmationService, Message } from 'primeng/api';
 import { IContactForm, IContactFull } from 'src/app/interfaces/IContact';
 import { PhoneFormatPipe } from 'src/app/shared/pipes/phone-format.pipe';
-import { AppState } from 'src/app/states/app.state';
-import { ContactApiCrudAddActions } from 'src/app/states/contact/actions/contact.actions';
-import { EnumStatusCrud } from 'src/app/states/contact/interfaces/contact-state.interfaces';
-import { SELECTORS } from 'src/app/states/contact/selectors';
+
+interface IProsIsNotValid {
+  property: 'firstName' | 'lastName' | 'phone' | 'email';
+}
+interface IValidationRules {
+  [key: string]: any; // Firma de índice que acepta cadenas como clave
+
+}
 
 @Component({
   selector: 'app-contact-form',
@@ -23,10 +26,11 @@ export class ContactFormComponent implements OnInit {
   @Output() formSubmit: EventEmitter<IContactForm> = new EventEmitter<IContactForm>();
   @Input() title: string = '';
   showMjsValid: boolean = false;
+  isResetEdit: boolean = false;
+  messages2: Message[] = [];
   constructor(
     private location: Location,
     private fb: FormBuilder,
-    private store: Store<AppState>,
     private router: Router,
     private confirmationService: ConfirmationService,
     private phoneFormatPipe: PhoneFormatPipe
@@ -35,6 +39,9 @@ export class ContactFormComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initEditForm();
+    this.messages2 = [
+      { severity: 'error', summary: 'Error: ', detail: 'El nombre y el telefono son obligatorios' },
+    ];
   }
   onSubmit() {
     if (this.contactForm.invalid) {
@@ -45,9 +52,6 @@ export class ContactFormComponent implements OnInit {
     const newContact: IContactForm = { ...this.contactForm.value };
     newContact.phone = newContact.phone?.replace(/\s/g, '');
     this.formSubmit.emit(newContact);
-    if(this.isEditing){
-      this.handleNavigation()
-    }
   }
   private initFormContact() {
     return this.fb.group({
@@ -74,15 +78,18 @@ export class ContactFormComponent implements OnInit {
   cleanForm() {
     this.showMjsValid = false;
     this.contactForm.reset();
+    if (this.isEditing) {
+      this.isResetEdit = true; // Establece la marca de reset en verdadero
+    }
   }
   confirm() {
-    if (!this.contactForm.dirty) this.goToList();
+    if (!this.contactForm.dirty && !this.isResetEdit) this.goToList();
     this.confirmationService.confirm({
       message: 'Los cambios no se guardaran',
       header: 'Esta seguro de salir del formulario',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.goToList();
+        this.handleNavigation();
       },
     });
   }
@@ -99,4 +106,11 @@ export class ContactFormComponent implements OnInit {
       this.router.navigate(['/']); // Reemplaza con la ruta que desees
     }
   }
+  isNotValideField({property}:IProsIsNotValid) {
+    if(this.showMjsValid){
+      return false;
+    }
+    return this.contactForm.get(property)?.invalid && this.contactForm?.get(property)?.touched 
+  }
+
 }

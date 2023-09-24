@@ -29,8 +29,6 @@ export class EditContactComponent implements OnInit, OnDestroy {
     })       
   }
   onFormSubmit(updateContact:IContactForm) {
-    // Aquí puedes manejar la lógica para guardar el nuevo contacto
-    console.log('Datos del formulario:', updateContact);
     this.store.dispatch(ContactApiCrudUpdateActions.loadUpdate({contactForm:updateContact,contactId:Number(this.contactId)}));
 
   }

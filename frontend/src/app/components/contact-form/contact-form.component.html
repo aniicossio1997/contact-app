@@ -1,34 +1,40 @@
 
   <p-card>
     <ng-template pTemplate="content">
-        <p-button (click)="handleNavigation()" pTooltip="Volver" styleClass="p-button-secondary p-button-text">
+        <p-button (click)="confirm()" pTooltip="Volver" styleClass="p-button-secondary p-button-text">
             <i class="pi pi-times mr-1"></i>
         </p-button>
         <p-divider type="solid"></p-divider>
         <div class="flex flex-column  justify-content-center flex-wrap">
             <div class="flex align-items-center justify-content-center  m-2">
-                <h2>{{title}}</h2>
-
+                <h1>{{title}}</h1>
             </div>
-            <p-messages severity="error" *ngIf="showMjsValid">
+            <p-messages severity="error" *ngIf="showMjsValid" [closable]="true" class="alert-custom">
               <ng-template pTemplate>
-                  <div class="ml-2">El nombre y email son obligatorios</div>
+                  <div class="ml-2">
+                    <p>Verifique que:</p>
+                    <ul>
+                      <li>El nombre y el telefono son <b>obligatorios</b></li>
+                      <li>El nombre <b>NO</b> debe contener caracteres especiales</li>
+                      <li>El apellido <b>NO</b> debe contener caracteres especiales</li>
+                      <li>El correo debe tener un formato correcto</li>
+                    </ul>
+                  </div>
               </ng-template>
-            </p-messages>
-            <div class="flex align-items-center justify-content-center  m-2">
-              
+          </p-messages>
 
+            <div class="flex align-items-center justify-content-center  m-2">
               <form [formGroup]="contactForm" (submit)="onSubmit()">
                 <div class="field grid mt-2">
                   <i class="col-fixed pi pi-user icon-form"></i>
                   <div class="col">
                     <div class="flex flex-column gap-3">
                       <span class="p-float-label">
-                        <input pInputText pTooltip="Campo obligatorio"  id="firstName" class="w-full" formControlName="firstName" type="text" />
+                        <input pInputText pTooltip="Campo obligatorio"  id="firstName" class="w-full " [ngClass]="{ 'ng-invalid': isNotValideField({property:'firstName' })}" formControlName="firstName" type="text" />
                         <label htmlFor="firstName">Nombre <span class="color-danger">*</span> </label>
                       </span>
                       <span class="p-float-label my-3">
-                        <input pInputText id="lastName" class="w-full" formControlName="lastName" type="text" />
+                        <input pInputText id="lastName" class="w-full"class="w-full " [ngClass]="{ 'ng-invalid': isNotValideField({property:'lastName' })}" formControlName="lastName" type="text" />
                         <label htmlFor="lastName">Apellido</label>
                       </span>
                     </div>
@@ -38,7 +44,11 @@
                   <i class="col-fixed pi pi-phone icon-form"></i>
                   <div class="col">
                     <span class="p-float-label">
-                      <p-inputMask pTooltip="Campo obligatorio"  styleClass="w-full" id="float-input" mask="(999) 999-9999" placeholder="(999) 999-9999" formControlName="phone"></p-inputMask>
+                      <p-inputMask pTooltip="Campo obligatorio"  styleClass="w-full" 
+                      id="float-input" mask="(999) 999-9999" placeholder="(999) 999-9999" 
+                      formControlName="phone"
+                      [ngClass]="{ 'ng-invalid': isNotValideField({property:'phone' })}" 
+                      ></p-inputMask>
                       <label for="float-input">Telefono <span class="color-danger">*</span></label>
             
                     </span>
@@ -48,8 +58,9 @@
                   <i class="col-fixed pi pi-envelope icon-form"></i>
                   <div class="col">
                     <span class="p-float-label">
-                      <input pInputText id="email" class="w-full" formControlName="email" type="email" />
-                      <label htmlFor="email">Email</label>
+                      <input pInputText id="email" class="w-full" formControlName="email"
+                       type="email" [ngClass]="{ 'ng-invalid': isNotValideField({property:'email' })}" />
+                      <label htmlFor="email">Correo</label>
                     </span>
                   </div>
                 </div>
@@ -74,9 +85,7 @@
                     </button>
                   </div>
                 </div>
-                <pre>
 
-                </pre>
               </form>
             </div>
         </div>
@@ -97,3 +106,4 @@
         </div>
     </ng-template>
   </p-confirmDialog>
+  

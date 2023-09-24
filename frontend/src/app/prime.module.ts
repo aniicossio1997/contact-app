@@ -14,6 +14,8 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
+import { DropdownModule } from 'primeng/dropdown';
+
 const modules=[
     TableModule,
     AvatarModule,
@@ -29,7 +31,8 @@ const modules=[
     InputMaskModule,
     InputTextareaModule,
     ToastModule,
-    MessagesModule
+    MessagesModule,
+    DropdownModule
 ]
 
 @NgModule({

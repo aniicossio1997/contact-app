@@ -25,8 +25,7 @@ export class AppComponent implements OnInit  {
    })
   }
   show(dataShow:IStatusCud) {
-    
-    this.messageService.add({ key: 'tc', severity: dataShow.status,  detail:`${dataShow.description}`,life: 15000  });
+    this.messageService.add({ key: 'tc', severity: dataShow.status,  detail:`${dataShow.description}` });
   }
 
 }

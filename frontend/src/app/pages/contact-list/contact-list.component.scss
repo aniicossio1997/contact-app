@@ -26,3 +26,19 @@ width: 100%;
         }
 
   }
+
+.b-radius-left {
+    border-top-left-radius: 5px !important; /* Radio de borde en la esquina superior izquierda */
+    border-bottom-left-radius: 5px !important; /* Radio de borde en la esquina inferior izquierda */
+  
+  }
+  .b-radius-right {
+    border-top-right-radius: 5px !important; /* Radio de borde en la esquina superior izquierda */
+    border-bottom-right-radius: 5px !important; /* Radio de borde en la esquina inferior izquierda */
+  
+  }
+.text-long{
+  font-size: 0.9rem !important;
+  text-transform: uppercase;
+  color: #5f6368 !important ;
+}

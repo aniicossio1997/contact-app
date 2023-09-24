@@ -23,6 +23,8 @@ export class ErrorInterceptorCustom implements HttpInterceptor {
         if (error.status === 0) {
           // Error de conexión (ERR_CONNECTION_REFUSED u otros)
           errorMessage = 'No se pudo conectar con el servidor.';
+          console.log(errorMessage);
+          this.navigationService.goToError()
           return throwError(() => new Error(error.message));
         }
         // Error del lado del servidor

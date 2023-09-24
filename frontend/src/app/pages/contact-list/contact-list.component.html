@@ -1,51 +1,52 @@
-<div class="card" *ngIf="!isContacts; else thereAreContacts">
+<div class="card" *ngIf="( isLoadingContacts); else thereAreContacts">
     <p-messages severity="info">
         <ng-template pTemplate>
             <div class="ml-2">
-                <p>Usted no tiene contactos</p>
-                <div>
-                    <button pButton class="p-button-raised p-button-help" (click)="onGoPageNew()"> <i  class="pi pi-plus mr-3"></i> Agregar</button>
-                </div>
+                <h2>Cargando...</h2>
             </div>
-
         </ng-template>
     </p-messages>
 </div>
 
 <ng-template #thereAreContacts>
     <div class="card">
-        <p-table [value]="contacts" class="table-responsive" [rowHover]="true">
-            <ng-template pTemplate="header" class="table-head">
-                <tr>
-                    <th>Nombre completo</th>
-                    <th>Telefono</th>
-                    <th class="show-none">Correo</th>
-                    <th></th>
-                </tr>
-            </ng-template>
+        <p-table #myTab [value]="filteredContacts" class="table-responsive" (sortFunction)="customSort($event)"
+            [customSort]="true">
             <ng-template pTemplate="caption">
                 <div class="grid">
                     <div class="col-12">
                         <div class="flex justify-content-between flex-wrap ">
-                            <div>Contactos ({{contacts.length}} )</div>
+                            <div class="text-long">Contactos ({{filteredContacts.length}} )</div>
                             <div style="margin-left: -20px;">
-                                <p-button icon="pi pi-plus" styleClass="p-button-rounded p-button-info" (click)="onGoPageNew()"></p-button>
+                                <p-button icon="pi pi-plus" styleClass="p-button-rounded p-button-info"
+                                    (click)="onGoPageNew()"></p-button>
                             </div>
                         </div>
                     </div>
                     <span class="p-input-icon-left ml-auto col-12">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text"  placeholder="Search keyword" />
+                        <i class="pi pi-search mx-2"></i>
+                        <input pInputText type="text" placeholder="Buscar..." class="border-noround w-5 b-radius-left"
+                            [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" />
+                        <button *ngIf="showClearButton" type="button" pButton icon="pi pi-times"
+                            class="p-button-secondary border-noround b-radius-right" (click)="clearSearch()"></button>
                     </span>
+                    <div>
+                    </div>
                 </div>
-
-
+            </ng-template>
+            <ng-template pTemplate="header" class="table-head">
+                <tr>
+                    <th pSortableColumn="firstName">Nombre completo <p-sortIcon field="firstName"></p-sortIcon></th>
+                    <th pSortableColumn="phone">Telefono <p-sortIcon field="phone"></p-sortIcon> </th>
+                    <th pSortableColumn="email" class="show-none">Correo<p-sortIcon field="email"></p-sortIcon></th>
+                    <th></th>
+                </tr>
             </ng-template>
             <ng-template pTemplate="body" let-contact>
                 <tr>
-                    <td >
+                    <td>
                         <div class="white-space-nowrap overflow-hidden text-overflow-ellipsis" style="
-                    max-width: 110px;">
+                    max-width: 145px;">
                             <p-avatar size="normal" shape="circle"
                                 [style]="{'background-color':'#2196F3', 'color': '#ffffff'}">
                                 <span class="text-base">{{contact.firstName | firstLetters:contact.lastName}}</span>
@@ -53,21 +54,26 @@
                             {{ contact.firstName }} {{contact.lastName}}
                         </div>
                     </td>
-                    <td >{{ contact.phone | phoneFormat }}</td>
-    
+                    <td>{{ contact.phone | phoneFormat }}</td>
+
                     <td class="white-space-nowrap overflow-hidden text-overflow-ellipsis show-none" style="
                     max-width: 110px; ">{{ contact.email }}</td>
                     <td>
                         <div class="flex justify-content-end flex-wrap gap-2 responsive-box-btn">
-                            <button pButton pRipple icon="pi pi-eye"
-                            (click)="onDetail(contact.id)"
-                                 class="p-button-rounded p-button-warning mr-2"></button>
-                             <button pButton pRipple icon="pi pi-pencil"
-                                 class="p-button-rounded p-button-help mr-2" (click)="onGoToEdit(contact.id)"></button>
-                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="confirmRemove(contact.id)" ></button>
-         
+                            <button pButton pRipple icon="pi pi-eye" (click)="onDetail(contact.id)"
+                                class="p-button-rounded p-button-warning mr-2"></button>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-help mr-2"
+                                (click)="onGoToEdit(contact.id)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                                (click)="confirmRemove(contact.id)"></button>
+
                         </div>
-                   </td>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="3">No existe contactos</td>
                 </tr>
             </ng-template>
         </p-table>
@@ -76,14 +82,15 @@
         <ng-template pTemplate="footer">
             <div class="flex justify-content-between flex-wrap gap-3">
                 <div class="flex align-items-center justify-content-center">
-                    <button type="button" pButton class="p-button-secondary" icon="pi pi-times" label="Cancelar" (click)="cd.reject()"></button>
+                    <button type="button" pButton class="p-button-secondary" icon="pi pi-times" label="Cancelar"
+                        (click)="cd.reject()"></button>
                 </div>
                 <div class="flex align-items-center justify-content-center">
-                    <button type="button" pButton icon="pi pi-check" label="Eliminar" (click)="cd.accept()"class="p-button-danger" ></button>
-    
+                    <button type="button" pButton icon="pi pi-check" label="Eliminar" (click)="cd.accept()"
+                        class="p-button-danger"></button>
+
                 </div>
             </div>
         </ng-template>
     </p-confirmDialog>
 </ng-template>
-

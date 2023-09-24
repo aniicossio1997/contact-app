@@ -7,3 +7,5 @@ export const selectIsLoadingList = (state: AppState) => state.contactState.isLoa
 export const selectselectedContact= (state: AppState) => state.contactState.selectedContact;
 export const selectStateCrud= (state: AppState) => state.contactState.statusCrud;
 export const selectInitialLoaded= (state: AppState) => state.contactState.initialLoaded;
+export const selectSearchTerm= (state: AppState) => state.contactState.searchTerm;
+export const selectFilteredContacts= (state: AppState) => state.contactState.filteredContacts;

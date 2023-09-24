@@ -10,4 +10,10 @@ export class NavigationServiceService {
   goToList() {
     this.router.navigate(['/']);
   }
+  goToError(){
+    this.router.navigate(['/error'])
+  }
+  goToDetails(contactId:number){
+    this.router.navigate(['/contacts', contactId]);
+  }
 }

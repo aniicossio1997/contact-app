@@ -24,16 +24,8 @@ export class NewContactComponent  {
   }
 
   onFormSubmit(newContact:IContactForm) {
-    // Aquí puedes manejar la lógica para guardar el nuevo contacto
-    console.log('Datos del formulario:', newContact);
     this.store.dispatch(ContactApiCrudAddActions.loadAdd({newContact:newContact}));
-    this.store.select(SELECTORS.selectStateCrud).subscribe(data=>{
-      this.stateAdd=data.status;
-      if(this.stateAdd=EnumStatusCrud.SUCCESS){
-        this.goToList()
-      }
-    });
-
+   
   }
   
 }

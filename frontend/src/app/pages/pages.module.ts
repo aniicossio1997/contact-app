@@ -6,9 +6,10 @@ import { SharedModule } from '../shared/shared.module';
 import { ContactDetalleComponent } from './contact-detalle/contact-detalle.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NewContactComponent } from './new-contact/new-contact.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { ComponentsModule } from '../components/components.module';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 const appRoutes: Routes = [
@@ -18,7 +19,7 @@ const appRoutes: Routes = [
   { path: ':id', component: ContactDetalleComponent },
 ];
 @NgModule({
-  declarations: [ContactListComponent,ContactDetalleComponent, NewContactComponent, EditContactComponent],
+  declarations: [ContactListComponent,ContactDetalleComponent, NewContactComponent, EditContactComponent, ErrorPageComponent],
 
   imports: [
     CommonModule,
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
     SharedModule,
     RouterModule.forChild(appRoutes),
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    FormsModule
   ],
   exports:[ContactListComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

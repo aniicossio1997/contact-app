@@ -1,0 +1,13 @@
+<p-messages severity="warn" >
+    <ng-template pTemplate>
+        <div class="flex flex-column">
+            <h1 class="">Lo sentimos</h1>
+            <p class="mx-2">Parece ser que el servidor está en mantenimiento. Por favor, intente acceder mas tarde.</p>
+            <button routerLink="/" pButton class=" w-2 mt-2 mb-4 p-button-raised p-button-help"> <i class="pi pi-replay mr-2"></i> recargar</button>
+            <img [src]="image" alt="imagen de error">
+
+        </div>
+        
+    </ng-template>
+    <ng-template></ng-template>
+</p-messages>

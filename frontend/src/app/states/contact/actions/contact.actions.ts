@@ -3,10 +3,15 @@ import { IContact, IContactForm, IContactFull } from 'src/app/interfaces/IContac
 
 
 export const ContactApiActions = createActionGroup({
-    source: 'Contact API',
+    source: 'Contact',
     events: {
+        //LIST
         'Load Contact List': props,
         'Loaded Contact List': props<{ contacts: IContact[] }>(),
+        //----search
+        'Search Contact': props<{searchTerm:string}>(),
+        'Search Contact Reset': props,
+        //-------SELECTED
         'Load selected contact': props<{ contactId: number }>(),
         'Loaded selected contact': props<{ selectedContact: IContactFull }>(),
         'Loaded selected Error contact': props,

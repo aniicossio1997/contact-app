@@ -8,10 +8,8 @@ export class FirstLettersPipePipe implements PipeTransform {
     if (!value1 && !value2) {
       return '';
     }
-    console.log('values',value1, value2)
     const firstLetter1 = value1 ? value1[0] : '';
     const firstLetter2 = value2 ? value2[0] : '';
-    console.log(firstLetter1, value2)
     return firstLetter1.toUpperCase() + firstLetter2.toUpperCase();
   }
 }
