@@ -55,5 +55,22 @@ namespace api_contact.Repositories
                             .ToListAsync();
             return contacts;
         }
+
+        public async Task<IEnumerable<Contact>> Search(string searchTerm)
+        {
+            searchTerm = searchTerm.Trim(); // Eliminar espacios en blanco al principio y al final
+
+            var contacts = await _context.Contacts.ToListAsync(); // Obtener todos los contactos
+
+            var filteredContacts = contacts
+                .Where(contact =>
+                    contact.Email.Contains(searchTerm.ToLower(), StringComparison.OrdinalIgnoreCase) ||
+                    contact.FirstName.Contains(searchTerm.ToLower(), StringComparison.OrdinalIgnoreCase) ||
+                    contact.LastName.Contains(searchTerm.ToLower(), StringComparison.OrdinalIgnoreCase)
+                );
+
+            return filteredContacts;
+        }
+
     }
 }

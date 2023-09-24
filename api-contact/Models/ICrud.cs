@@ -7,5 +7,7 @@
         Task<bool> Delete(int id);
         Task<bool> Insert(TEntity entity);
         Task<bool> Update(TEntity entity);
+        // Nuevo método para búsqueda
+        Task<IEnumerable<TEntity>> Search(string searchTerm);
     }
 }

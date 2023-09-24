@@ -19,8 +19,6 @@ namespace api_contact.Models
         [Column("last_name")] 
         public string LastName { get; set; }=string.Empty;
 
-       
-        [Column("email")] // Cambiar el nombre de la columna para Email
         public string Email { get; set; }= string.Empty;
 
         [Required]
@@ -48,6 +46,9 @@ namespace api_contact.Models
                 .HasColumnType("datetime(0)") // Esto establece la precisión en segundos
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .ValueGeneratedOnAddOrUpdate();
+
+            builder.Property(contact => contact.Email)
+            .HasColumnName("email"); // Cambiar el nombre de la columna para Email
         }
     }
 }
