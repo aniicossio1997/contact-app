@@ -11,18 +11,23 @@ textarea {
 }
 
 form {
-    width: 40%;
+    width: 30rem;
 }
 
 @media (max-width: 950px) {
     form {
-        width: 60%;
+        width: 25rem;
     }
 }
 
-@media (max-width: 950px) {
+@media (max-width: 850px) {
     form {
-        width: 80%;
+        width: 70%;
+    }
+}
+@media (max-width: 550px) {
+    form {
+        width: 95%;
     }
 }
 
