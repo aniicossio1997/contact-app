@@ -1,3 +1,6 @@
+h1{
+    font-size: 1.6rem;
+}
 .icon-form {
     margin-top: 8px;
 }
@@ -34,4 +37,10 @@ form {
 ::ng-deep .p-message .p-message-wrapper{
     margin: 0 !important;
     padding:  0 !important;
+}
+.invalid, .invalid:hover{
+    border: 1px solid  #e24c4c;
+}
+.invalid-phone >  ::ng-deep .p-inputtext {
+    border-color: #e24c4c !important;
 }

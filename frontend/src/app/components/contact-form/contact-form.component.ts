@@ -40,7 +40,7 @@ export class ContactFormComponent implements OnInit {
   ngOnInit(): void {
     this.initEditForm();
     this.messages2 = [
-      { severity: 'error', summary: 'Error: ', detail: 'El nombre y el telefono son obligatorios' },
+      { severity: 'error', summary: 'Error: ', detail: 'El nombre y el teléfono son obligatorios' },
     ];
   }
   onSubmit() {
@@ -111,6 +111,15 @@ export class ContactFormComponent implements OnInit {
       return false;
     }
     return this.contactForm.get(property)?.invalid && this.contactForm?.get(property)?.touched 
+  }
+  isValidField( field: string ): boolean {
+    const fieldAux=this.contactForm.controls[field];
+    const errors_v2 = fieldAux.errors|| {};
+    const isError = Object.keys(errors_v2);
+    const errors = isError.length >0;
+    if(errors && this.showMjsValid && !(fieldAux.value)) return true;
+    return !!(errors && this.contactForm.controls[field]?.touched );
+    
   }
 
 }

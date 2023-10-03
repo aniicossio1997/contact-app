@@ -30,7 +30,10 @@
                   <div class="col">
                     <div class="flex flex-column gap-3">
                       <span class="p-float-label">
-                        <input pInputText pTooltip="Campo obligatorio"  id="firstName" class="w-full " [ngClass]="{ 'ng-invalid': isNotValideField({property:'firstName' })}" formControlName="firstName" type="text" />
+                        <input pInputText pTooltip="Campo obligatorio"
+                        id="firstName" class="w-full "  formControlName="firstName" type="text"
+                        [ngClass]="{'invalid ': isValidField('firstName')}"
+                        />
                         <label htmlFor="firstName">Nombre <span class="color-danger">*</span> </label>
                       </span>
                       <span class="p-float-label my-3">
@@ -47,7 +50,7 @@
                       <p-inputMask pTooltip="Campo obligatorio"  styleClass="w-full" 
                       id="float-input" mask="(999) 999-9999" placeholder="(999) 999-9999" 
                       formControlName="phone"
-                      [ngClass]="{ 'ng-invalid': isNotValideField({property:'phone' })}" 
+                      [ngClass]="{'invalid-phone ': isValidField('phone')}"
                       ></p-inputMask>
                       <label for="float-input">Telefono <span class="color-danger">*</span></label>
             
