@@ -1,7 +1,9 @@
 
 # 💫 Agenda
 Aplicación para guardar contactos. 
-
+ - **Para iniciar la migración**
+ 		 - Add-Migration MigracionInicial
+           	 - Update-Database 
  - **Crud realizado en net core con mysql**
 		 - ORM: Entity Framework Core
 		 - Validadores para los DTO: Fluent Validation
